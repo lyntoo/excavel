@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#111111">
+
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Écran 0 : SCAN                              -->
+        <!-- ═══════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:text="ExcaLevel"
+                android:textSize="30sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="WitMotion WT901BLECL5.0 — Niveau bras excavatrice"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnScan"
+                    android:text="🔍  Rechercher"
+                    android:textSize="15sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp" />
+
+                <Button
+                    android:id="@+id/btnStopScan"
+                    android:text="⏹  Arrêter"
+                    android:textSize="15sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/scanProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/tvScanStatus"
+                android:text="Appuyez sur Rechercher pour démarrer le scan BLE"
+                android:textColor="#AAAAAA"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+
+            <ListView
+                android:id="@+id/lvDevices"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#1E1E1E"
+                android:divider="#333333"
+                android:dividerHeight="1dp" />
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- Écran 1 : NIVEAU                            -->
+        <!-- ═══════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#111111">
+
+            <!-- Barre d'état -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#1E1E1E"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvDeviceName"
+                    android:text="---"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvBattery"
+                    android:text="🔋 --%"
+                    android:textColor="#88FF88"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp" />
+
+                <TextView
+                    android:id="@+id/tvAngle"
+                    android:text="--.-°"
+                    android:textColor="#FFFF88"
+                    android:textSize="14sp"
+                    android:fontFamily="monospace"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_marginEnd="12dp" />
+
+                <Button
+                    android:id="@+id/btnRotate"
+                    android:text="📱 Portrait"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+
+            </LinearLayout>
+
+            <!-- Vue de niveau (prend tout l'espace disponible) -->
+            <com.lyntoo.excalevel.LevelView
+                android:id="@+id/levelView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- Barre de contrôles (2 lignes pour tenir en portrait) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#1A1A1A"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <!-- Ligne 1 : axe + calibrage + bip -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:text="Axe :"
+                        android:textColor="#AAAAAA"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerAxis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp" />
+
+                    <Button
+                        android:id="@+id/btnCalibrate"
+                        android:text="⊙ Calibrer"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <CheckBox
+                        android:id="@+id/cbBeep"
+                        android:text="Bip"
+                        android:checked="true"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Ligne 2 : déconnecter à droite -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <Button
+                        android:id="@+id/btnDisconnect"
+                        android:text="Déconnecter"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ViewFlipper>
+
+</FrameLayout>
