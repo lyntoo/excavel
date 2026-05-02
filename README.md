@@ -117,17 +117,9 @@ excavel/
 
 | Version | Change |
 |---------|--------|
-| v1.0 | Initial build, BLE scan and connection |
-| v1.1 | Portrait/landscape orientation toggle |
-| v1.2 | BLE scan fix (re-init after permissions granted) |
-| v1.3 | Polling thread replacing unreliable onRecord callback |
-| v1.4 | Diagnostic mode confirming AccX/Y/Z reception |
-| v1.5 | Angle computation via atan2 from accelerometer data |
-| v1.6 | Clean release without diagnostic code |
-| v1.7 | Axis options adapted for side-mounted sensor (X+, X−, Y/Z) |
-| v1.8 | 2-row portrait layout, fixed-width angle display (no layout shift on sign change) |
-| v1.9 | EN/FR localization (auto language detection), progressive proximity beep |
-| v1.10 | Fix: continuous beep at 0° (self-rescheduling fireBeep, 90% duty cycle) |
+| v1.0 | Initial public release — BLE scan/connect, real-time level bar, axis selection, calibration, portrait/landscape |
+| v1.1 | EN/FR localization (auto language detection), progressive proximity beep (slow at ±15°, continuous at 0°) |
+| v1.2 | Fix: continuous beep at 0° never stops (self-rescheduling fireBeep, 90% duty cycle) |
 
 ## License
 
