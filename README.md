@@ -1,4 +1,4 @@
-# ExcaLevel
+# Excavel
 
 Android app displaying a real-time horizontal level indicator for an excavator arm, using a WitMotion WT901BLECL5.0 BLE inclinometer sensor.
 
@@ -55,8 +55,8 @@ The polling thread reads AccX/Y/Z every 100 ms and updates the display in real t
 **Requirements**: Android SDK (API 34), Java 17, Gradle 8.7
 
 ```bash
-git clone https://github.com/lyntoo/excalevel.git
-cd excalevel
+git clone https://github.com/lyntoo/excavel.git
+cd excavel
 ./gradlew assembleDebug
 # APK: app/build/outputs/apk/debug/app-debug.apk
 ```
@@ -85,10 +85,10 @@ cd excalevel
 ## Project Structure
 
 ```
-excalevel/
+excavel/
 ├── app/
 │   ├── src/main/
-│   │   ├── kotlin/com/lyntoo/excalevel/
+│   │   ├── kotlin/com/lyntoo/excavel/
 │   │   │   ├── MainActivity.kt    — BLE connection, polling thread, angle computation
 │   │   │   └── LevelView.kt       — Canvas-based level indicator view
 │   │   ├── res/layout/

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.lyntoo.excalevel'
+    namespace 'com.lyntoo.excavel'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.lyntoo.excalevel"
+        applicationId "com.lyntoo.excavel"
         minSdk 23
         targetSdk 34
         versionCode 1

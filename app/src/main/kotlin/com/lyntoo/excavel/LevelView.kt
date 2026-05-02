@@ -1,4 +1,4 @@
-package com.lyntoo.excalevel
+package com.lyntoo.excavel
 
 import android.content.Context
 import android.graphics.*

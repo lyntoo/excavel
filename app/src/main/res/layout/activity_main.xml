@@ -19,7 +19,7 @@
             android:padding="20dp">
 
             <TextView
-                android:text="ExcaLevel"
+                android:text="Excavel"
                 android:textSize="30sp"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
@@ -155,7 +155,7 @@
             </LinearLayout>
 
             <!-- Level view (fills remaining space) -->
-            <com.lyntoo.excalevel.LevelView
+            <com.lyntoo.excavel.LevelView
                 android:id="@+id/levelView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

@@ -1,4 +1,4 @@
-package com.lyntoo.excalevel
+package com.lyntoo.excavel
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), IBluetoothFoundObserver, IBwt901bleRec
     companion object {
         private const val PERM_REQUEST  = 101
         private const val REQUEST_BT_ON = 102
-        private const val PREFS_NAME    = "excalevel"
+        private const val PREFS_NAME    = "excavel"
         private const val PREF_ORIENT   = "orientation"
         private const val PREF_AXIS     = "axis_index"
 
