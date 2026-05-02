@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <!-- ═══════════════════════════════════════════ -->
-        <!-- Écran 0 : SCAN                              -->
+        <!-- Screen 0 : SCAN                             -->
         <!-- ═══════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="WitMotion WT901BLECL5.0 — Niveau bras excavatrice"
+                android:text="@string/app_subtitle"
                 android:textSize="13sp"
                 android:textColor="#888888"
                 android:gravity="center"
@@ -44,7 +44,7 @@
 
                 <Button
                     android:id="@+id/btnScan"
-                    android:text="🔍  Rechercher"
+                    android:text="@string/btn_scan"
                     android:textSize="15sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
 
                 <Button
                     android:id="@+id/btnStopScan"
-                    android:text="⏹  Arrêter"
+                    android:text="@string/btn_stop"
                     android:textSize="15sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
 
             <TextView
                 android:id="@+id/tvScanStatus"
-                android:text="Appuyez sur Rechercher pour démarrer le scan BLE"
+                android:text="@string/hint_scan"
                 android:textColor="#AAAAAA"
                 android:textSize="13sp"
                 android:gravity="center"
@@ -93,7 +93,7 @@
         </LinearLayout>
 
         <!-- ═══════════════════════════════════════════ -->
-        <!-- Écran 1 : NIVEAU                            -->
+        <!-- Screen 1 : LEVEL                            -->
         <!-- ═══════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,7 +101,7 @@
             android:orientation="vertical"
             android:background="#111111">
 
-            <!-- Barre d'état -->
+            <!-- Status bar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
 
                 <Button
                     android:id="@+id/btnRotate"
-                    android:text="📱 Portrait"
+                    android:text="@string/orient_portrait"
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
@@ -154,14 +154,14 @@
 
             </LinearLayout>
 
-            <!-- Vue de niveau (prend tout l'espace disponible) -->
+            <!-- Level view (fills remaining space) -->
             <com.lyntoo.excalevel.LevelView
                 android:id="@+id/levelView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <!-- Barre de contrôles (2 lignes pour tenir en portrait) -->
+            <!-- Controls bar (2 rows to fit portrait) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp">
 
-                <!-- Ligne 1 : axe + calibrage + bip -->
+                <!-- Row 1: axis + calibrate + beep -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:text="Axe :"
+                        android:text="@string/label_axis"
                         android:textColor="#AAAAAA"
                         android:textSize="13sp"
                         android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
 
                     <Button
                         android:id="@+id/btnCalibrate"
-                        android:text="⊙ Calibrer"
+                        android:text="@string/btn_calibrate"
                         android:textSize="13sp"
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
@@ -206,7 +206,7 @@
 
                     <CheckBox
                         android:id="@+id/cbBeep"
-                        android:text="Bip"
+                        android:text="@string/cb_beep"
                         android:checked="true"
                         android:textColor="#FFFFFF"
                         android:textSize="13sp"
@@ -215,7 +215,7 @@
 
                 </LinearLayout>
 
-                <!-- Ligne 2 : déconnecter à droite -->
+                <!-- Row 2: disconnect right-aligned -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
 
                     <Button
                         android:id="@+id/btnDisconnect"
-                        android:text="Déconnecter"
+                        android:text="@string/btn_disconnect"
                         android:textSize="13sp"
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"

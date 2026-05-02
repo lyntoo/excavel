@@ -1,4 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ExcaLevel</string>
+    <string name="app_subtitle">WitMotion WT901BLECL5.0 — Excavator Arm Level</string>
+
+    <!-- Scan screen -->
+    <string name="btn_scan">🔍  Scan</string>
+    <string name="btn_stop">⏹  Stop</string>
+    <string name="hint_scan">Press Scan to start BLE discovery</string>
+    <string name="msg_scanning">Scanning… tap a device to connect</string>
+    <string name="msg_scan_error">Scan error: %s</string>
+    <string name="msg_error">Error: %s</string>
+    <string name="msg_devices_found_stop">%1$d device(s) found. Tap to connect.</string>
+    <string name="msg_device_count">%1$d device(s) found</string>
+    <string name="msg_disconnected">Disconnected.</string>
+
+    <!-- Level screen -->
+    <string name="btn_calibrate">⊙ Calibrate</string>
+    <string name="cb_beep">Beep</string>
+    <string name="btn_disconnect">Disconnect</string>
+    <string name="orient_portrait">📱 Portrait</string>
+    <string name="orient_landscape">🖥 Landscape</string>
+    <string name="label_axis">Axis:</string>
+
+    <!-- Axis spinner -->
+    <string name="axis_x_plus">Arm (X+)</string>
+    <string name="axis_x_minus">Arm inv (X−)</string>
+    <string name="axis_roll">Roll (Y/Z)</string>
+
+    <!-- Level view -->
+    <string name="label_front">◄  FRONT</string>
+    <string name="label_back">BACK  ►</string>
+    <string name="status_perpendicular">✓  PERPENDICULAR  ✓</string>
+    <string name="direction_forward">◄  Tilt FORWARD</string>
+    <string name="direction_backward">Tilt BACKWARD  ►</string>
+
+    <!-- Status / errors -->
+    <string name="msg_bt_enabling">Bluetooth disabled — enabling…</string>
+    <string name="msg_location_required">Location services required for BLE scan — please enable</string>
+    <string name="msg_bt_denied">Bluetooth denied — cannot scan</string>
+    <string name="msg_perms_denied">Permissions denied — Bluetooth + Location required for BLE scan</string>
+    <string name="msg_connect_failed">Connection failed: %s</string>
+    <string name="msg_ble_init">Initializing BLE GATT…</string>
+    <string name="msg_ble_init_short">Init BLE…</string>
+    <string name="msg_no_data">⚠️ No data (%1$d s)</string>
+    <string name="msg_calibrated">Calibrated — reference: %.1f°</string>
+
+    <!-- SDK error translations -->
+    <string name="sdk_enable_bt">Please enable Bluetooth</string>
+    <string name="sdk_enable_location">Please enable location services</string>
+    <string name="sdk_missing_perm">Missing permission</string>
+    <string name="sdk_generic_error">SDK error: check Bluetooth and location</string>
+    <string name="sdk_unknown_error">Unknown error</string>
 </resources>

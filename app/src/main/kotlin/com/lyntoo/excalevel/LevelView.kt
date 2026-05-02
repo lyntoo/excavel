@@ -20,6 +20,13 @@ class LevelView @JvmOverloads constructor(
 
     private val maxDeg = 20f
 
+    // Strings cached at construction time — locale resolved once
+    private val strFront       = context.getString(R.string.label_front)
+    private val strBack        = context.getString(R.string.label_back)
+    private val strLevel       = context.getString(R.string.status_perpendicular)
+    private val strTiltForward = context.getString(R.string.direction_forward)
+    private val strTiltBack    = context.getString(R.string.direction_backward)
+
     private val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.parseColor("#111111") }
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
     private val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
@@ -47,7 +54,7 @@ class LevelView @JvmOverloads constructor(
 
         canvas.drawRect(0f, 0f, w, h, bgPaint)
 
-        // Zones de couleur (rouge → jaune → vert)
+        // Color zones (red → yellow → green)
         fillPaint.color = Color.parseColor("#7A1A1A")
         canvas.drawRect(0f, barTop, w, barBot, fillPaint)
 
@@ -59,7 +66,7 @@ class LevelView @JvmOverloads constructor(
         fillPaint.color = Color.parseColor("#1A5A1A")
         canvas.drawRect(cx - greenW, barTop, cx + greenW, barBot, fillPaint)
 
-        // Graduations
+        // Graduation marks
         textPaint.textSize = 26f
         textPaint.color = Color.parseColor("#888888")
         for (deg in floatArrayOf(-20f, -15f, -10f, -5f, 5f, 10f, 15f, 20f)) {
@@ -70,26 +77,26 @@ class LevelView @JvmOverloads constructor(
             canvas.drawLine(x, barBot - 18f, x, barBot, strokePaint)
             canvas.drawText("${deg.toInt()}°", x, barTop - 8f, textPaint)
         }
-        // Graduation 0° (plus visible)
+        // 0° graduation (prominent)
         textPaint.color = Color.parseColor("#00FF44")
         textPaint.textSize = 28f
         canvas.drawText("0°", cx, barTop - 8f, textPaint)
 
-        // Ligne centrale pointillée (référence 90°)
+        // Center dashed line (90° reference)
         canvas.drawLine(cx, barTop - 5f, cx, barBot + 5f, dashPaint)
 
-        // Bords de la barre
+        // Bar border
         strokePaint.color = Color.parseColor("#444444")
         strokePaint.strokeWidth = 2f
         canvas.drawRect(0f, barTop, w, barBot, strokePaint)
 
-        // Labels AVANT / ARRIÈRE dans la barre
+        // FRONT / BACK labels inside bar
         textPaint.textSize = 32f
         textPaint.color = Color.parseColor("#666666")
-        canvas.drawText("◄  AVANT", cx * 0.30f, barMid + 12f, textPaint)
-        canvas.drawText("ARRIÈRE  ►", cx * 1.70f, barMid + 12f, textPaint)
+        canvas.drawText(strFront, cx * 0.30f, barMid + 12f, textPaint)
+        canvas.drawText(strBack,  cx * 1.70f, barMid + 12f, textPaint)
 
-        // Indicateur mobile
+        // Moving indicator
         val clamped = deviation.coerceIn(-maxDeg, maxDeg)
         val indX = cx + (clamped / maxDeg) * cx
         val inZone = abs(deviation) <= toleranceDeg
@@ -101,17 +108,17 @@ class LevelView @JvmOverloads constructor(
             else   -> Color.parseColor("#FF4444")
         }
 
-        // Ombre portée pour visibilité
+        // Shadow for visibility
         strokePaint.color = Color.BLACK
         strokePaint.strokeWidth = 16f
         canvas.drawLine(indX, barTop - 28f, indX, barBot + 28f, strokePaint)
 
-        // Indicateur principal
+        // Main indicator
         strokePaint.color = indColor
         strokePaint.strokeWidth = 10f
         canvas.drawLine(indX, barTop - 28f, indX, barBot + 28f, strokePaint)
 
-        // Triangle pointeur (au-dessus de la barre)
+        // Triangle pointer (above bar)
         val tri = Path()
         tri.moveTo(indX, barTop - 32f)
         tri.lineTo(indX - 20f, barTop - 58f)
@@ -120,13 +127,13 @@ class LevelView @JvmOverloads constructor(
         fillPaint.color = indColor
         canvas.drawPath(tri, fillPaint)
 
-        // Message d'état (bas de l'écran)
+        // Status message (bottom)
         if (inZone) {
             textPaint.color = Color.parseColor("#00FF44")
             textPaint.textSize = 52f
-            canvas.drawText("✓  PERPENDICULAIRE  ✓", cx, h * 0.88f, textPaint)
+            canvas.drawText(strLevel, cx, h * 0.88f, textPaint)
         } else {
-            val dir = if (deviation < 0) "◄  Incliner AVANT" else "Incliner ARRIÈRE  ►"
+            val dir = if (deviation < 0) strTiltForward else strTiltBack
             val deg = String.format("%.1f°", abs(deviation))
             textPaint.color = indColor
             textPaint.textSize = 44f
