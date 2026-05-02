@@ -125,7 +125,9 @@ excavel/
 | v1.5 | Angle computation via atan2 from accelerometer data |
 | v1.6 | Clean release without diagnostic code |
 | v1.7 | Axis options adapted for side-mounted sensor (X+, X−, Y/Z) |
-| v1.8 | 2-row portrait layout, fixed-width angle display |
+| v1.8 | 2-row portrait layout, fixed-width angle display (no layout shift on sign change) |
+| v1.9 | EN/FR localization (auto language detection), progressive proximity beep |
+| v1.10 | Fix: continuous beep at 0° (self-rescheduling fireBeep, 90% duty cycle) |
 
 ## License
 
