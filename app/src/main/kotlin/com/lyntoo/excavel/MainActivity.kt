@@ -44,12 +44,10 @@ class MainActivity : AppCompatActivity(), IBluetoothFoundObserver, IBwt901bleRec
         private const val PREF_ORIENT   = "orientation"
         private const val PREF_AXIS     = "axis_index"
 
-        // Beep starts at this deviation (degrees), silent beyond
-        private const val BEEP_START_DEG = 15f
-        // Slowest beep interval (ms) at BEEP_START_DEG
-        private const val BEEP_MAX_MS    = 900L
-        // Switch to continuous tone within this many degrees of 0
-        private const val BEEP_CONT_DEG  = 0.4f
+        private const val BEEP_START_DEG = 15f   // silent beyond ±15°
+        private const val BEEP_MAX_MS    = 1500L  // slowest interval at ±15° (1 beep/1.5s)
+        private const val BEEP_CONT_MS   = 140L   // "continuous" interval at 0° (140ms, 90% duty)
+        private const val BEEP_CONT_DEG  = 0.4f   // below this → continuous
     }
 
     // BLE
@@ -444,6 +442,11 @@ class MainActivity : AppCompatActivity(), IBluetoothFoundObserver, IBwt901bleRec
     }
 
     // ─── Beep — progressive proximity alert ──────────────────────
+    //
+    // One mechanism for all cases: fireBeep() reschedules itself.
+    // Interval shrinks linearly from 1500ms (at ±15°) to 140ms (at ±0.4°).
+    // Below 0.4°: 140ms interval with 126ms tone = 90% duty cycle = sounds continuous.
+    // No startTone(Int.MAX_VALUE) — avoids Android silently cutting the tone.
 
     private fun updateBeep(deviation: Float) {
         if (!cbBeep.isChecked) { stopBeep(); return }
@@ -451,37 +454,32 @@ class MainActivity : AppCompatActivity(), IBluetoothFoundObserver, IBwt901bleRec
 
         if (abs > BEEP_START_DEG) { stopBeep(); return }
 
-        val targetInterval: Long = when {
-            abs <= BEEP_CONT_DEG -> 0L  // continuous tone
+        val newInterval: Long = when {
+            abs <= BEEP_CONT_DEG -> BEEP_CONT_MS
             else -> {
-                // Linear: 900 ms at 15°, 80 ms at 0.4°
                 val ratio = (abs - BEEP_CONT_DEG) / (BEEP_START_DEG - BEEP_CONT_DEG)
-                (80 + ratio * (BEEP_MAX_MS - 80)).toLong()
+                (BEEP_CONT_MS + ratio * (BEEP_MAX_MS - BEEP_CONT_MS)).toLong()
             }
         }
 
-        if (targetInterval == beepInterval) return  // no change
+        // Hysteresis: only restart if interval changed by more than 80ms
+        if (beepInterval > 0 && kotlin.math.abs(newInterval - beepInterval) < 80) return
 
         beepHandler.removeCallbacksAndMessages(null)
         toneGen?.stopTone()
-        beepInterval = targetInterval
-
-        if (targetInterval == 0L) {
-            toneGen?.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, Int.MAX_VALUE)
-        } else {
-            scheduleBeep()
-        }
+        beepInterval = newInterval
+        fireBeep()
     }
 
-    private fun scheduleBeep() {
-        val r = object : Runnable {
-            override fun run() {
-                if (beepInterval <= 0L) return
-                toneGen?.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 80)
-                beepHandler.postDelayed(this, beepInterval)
-            }
-        }
-        beepHandler.post(r)
+    private fun fireBeep() {
+        if (beepInterval < 0) return
+        // Short click for slow beeps, near-full duty cycle for fast/continuous
+        val duration = if (beepInterval <= BEEP_CONT_MS * 3)
+            (beepInterval * 0.9).toInt().coerceAtLeast(50)
+        else
+            90
+        toneGen?.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, duration)
+        beepHandler.postDelayed({ fireBeep() }, beepInterval)
     }
 
     private fun stopBeep() {
